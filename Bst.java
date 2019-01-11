@@ -1,8 +1,18 @@
-import java.lang.Math; 
+//*******************************************************************
+// Welcome to CompileJava!
+// If you experience any issues, please contact us ('More Info')  -->
+// Also, sorry that the "Paste" feature no longer works! GitHub broke
+// this (so we'll switch to a new provider): https://blog.github.com\
+// /2018-02-18-deprecation-notice-removing-anonymous-gist-creation/
+//*******************************************************************
 
+import java.lang.Math; // headers MUST be above the first class
+
+// one class needs to have a main() method
 public class HelloWorld
 {
   public static int maxHeight(Node node){
+    //if(data!)
     if(node==null){
       return 0;
     }
@@ -10,12 +20,28 @@ public class HelloWorld
   }
   
   public static int checkBalanced(Node node){
+    //if(data!)
     if(node==null){
       return 0;
     }
     if(Math.abs(maxHeight(node.left)-maxHeight(node.right))>1){return 0;}
     else{return 1;}
   }
+  
+  public static Node createBST(int[] sortedArray) {
+		return createBST(sortedArray, 0, sortedArray.length - 1);
+	}
+	
+	private static Node createBST(int[] sortedArray, int startIndex, int endIndex) {
+		if (startIndex > endIndex) {
+			return null;
+		}
+		int mid = (startIndex + endIndex) / 2;
+		Node root = new Node(sortedArray[mid]);
+		root.left  = createBST(sortedArray, startIndex, mid - 1);
+		root.right = createBST(sortedArray, mid + 1, endIndex);
+		return root;
+    }
 
   public static void main(String[] args)
   {
@@ -24,8 +50,11 @@ public class HelloWorld
     node.insert(0);
     //node.insert(3);
     node.print();
-    System.out.print(checkBalanced(node));
+    System.out.print(checkBalanced(node)+"\n");
     
+	int[] sortedArray = {1, 2, 3, 4, 5, 6, 7};
+    Node bst = createBST(sortedArray);
+    bst.print();
   }
   
 }
