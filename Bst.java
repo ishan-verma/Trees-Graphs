@@ -43,18 +43,33 @@ public class HelloWorld
 		return root;
     }
 
+  public static boolean isBST(Node root) {
+	return isBST_Helper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+  }
+  private static boolean isBST_Helper(Node node, int min, int max) {
+  if (node == null) {
+    return true;
+  }
+  if (node.data <= min || node.data > max) { // tricky off-by-one errors for duplicates. Tricky whether it's <, <=, >, >=
+    return false;
+  }
+    return isBST_Helper(node.left, min, node.data) && isBST_Helper(node.right, node.data, max);
+  }
+
   public static void main(String[] args)
   {
     Node node = new Node(2);
     node.insert(1);
     node.insert(0);
-    //node.insert(3);
+    node.insert(0);
+
     node.print();
     System.out.print(checkBalanced(node)+"\n");
     
 	int[] sortedArray = {1, 2, 3, 4, 5, 6, 7};
     Node bst = createBST(sortedArray);
     bst.print();
+    System.out.println("is BST?: " + isBST(node));
   }
   
 }
